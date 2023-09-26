@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -341,6 +341,7 @@
   <ItemGroup>
     <None Include="..\CHANGELOG.md" />
     <None Include="..\README.md" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="al-khaser.manifest" />
@@ -348,5 +349,14 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+    <Import Project="..\packages\jsoncpp.redist.0.6.0.1\build\native\jsoncpp.redist.targets" Condition="Exists('..\packages\jsoncpp.redist.0.6.0.1\build\native\jsoncpp.redist.targets')" />
+    <Import Project="..\packages\jsoncpp.0.6.0.1\build\native\jsoncpp.targets" Condition="Exists('..\packages\jsoncpp.0.6.0.1\build\native\jsoncpp.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\jsoncpp.redist.0.6.0.1\build\native\jsoncpp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jsoncpp.redist.0.6.0.1\build\native\jsoncpp.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\jsoncpp.0.6.0.1\build\native\jsoncpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\jsoncpp.0.6.0.1\build\native\jsoncpp.targets'))" />
+  </Target>
 </Project>
